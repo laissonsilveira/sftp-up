@@ -1,0 +1,9 @@
+#!/bin/bash
+#########################################################################
+# Script de criação do pacote
+#########################################################################
+# Autor : Laisson R. Silveira - <laisson.silveira@digitro.com.br>
+# Data : 11/12/2018
+npm config set registry http://npm.digitro.com.br
+MONGOMS_VERSION=4.0.4 npm install --development
+npm test && npm run build

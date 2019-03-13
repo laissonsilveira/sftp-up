@@ -1,0 +1,24 @@
+{
+    "server": {
+        "port": 6666
+    },
+    "sftpServer": {
+        "port": 8022
+    },
+    "log": {
+        "file": {
+            "level": "debug",
+            "json": false,
+            "colorize": false,
+            "maxsize": 5242880,
+            "maxFiles": 5,
+            "prettyPrint": true
+        },
+        "console": {
+            "level": "debug",
+            "json": false,
+            "colorize": true
+        },
+        "directory": "/axs/traces/sftp-dc/"
+    }
+}

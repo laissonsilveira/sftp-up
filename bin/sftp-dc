@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+/**
+ * @autor Laisson R. Silveira<laisson.silveira@digitro.com>
+ *
+ * Created on 13/03/2019
+ */
+global.__CONFIG = require('../cfg');
+
+const LOGGER = require('../lib/logger');
+LOGGER.info('...::: SFTP-DC Server :::...');
+LOGGER.info('Execute mode: [' + process.env.NODE_ENV + ']');
+
+const { normalizePort, onErrorServer } = require('../lib/utils');
+const http = require('http');
+const port = normalizePort(process.env.PORT || __CONFIG.server.port);
+const server = http.createServer();
+server.listen(port);
+server.on('error', onErrorServer);
+server.on('listening', () => LOGGER.info(`Servidor iniciado na porta '${port}'`));
+
+require('../lib/sftp').start();
+
+module.exports = server;

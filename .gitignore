@@ -1,0 +1,37 @@
+# Eclipse
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+.settings/
+.project
+.externalToolBuilders/
+.cproject
+.classpath
+
+# JetBrains
+*.iml
+.idea/
+/out/
+.idea_modules/
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+#VSCODE
+.history
+
+#JS
+node_modules
+node
+
+#OTHERS
+dump.rdb
+coverage
+.project
+npm-debug.log
+build/*
+download
+c-sync-server.tgz

@@ -1,0 +1,25 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true,
+        "mocha": true,
+        "jquery": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2017
+    },
+    "rules": {
+        "semi": "error",
+        "quotes": [
+            "error",
+            "single"
+        ]
+    },
+    "globals": {
+        "__CONFIG": true,
+        "angular": true
+    }
+}

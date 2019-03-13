@@ -1,0 +1,36 @@
+{
+    "name": "sftp-dc",
+    "description": "Serviço de SFTP para coletada de dados",
+    "version": "1.0.0",
+    "private": true,
+    "main": "./bin/sftp-dc",
+    "repository": {
+        "type": "git",
+        "url": "git@gitlab.digitro.com.br:perseus/sftp-dc.git"
+    },
+    "author": {
+        "name": "Laisson R. Silveira",
+        "email": "laisson.silveira@digitro.com.br"
+    },
+    "readme": "README.md",
+    "license": "UNLICENSED",
+    "scripts": {
+        "start": "NODE_ENV=development node ./bin/sftp-dc",
+        "build": "./node_modules/gulp/bin/gulp.js build",
+        "test": "./node_modules/gulp/bin/gulp.js test",
+        "test-debug": "NODE_ENV=test mocha test/*.test.js --inspect-brk",
+        "publish-patch": "npm version patch",
+        "publish-minor": "npm version minor",
+        "publish-major": "npm version major",
+        "postversion": "git push",
+        "pre-build": "./node_modules/dgt-tasks/bin/task --name pre-build"
+    },
+    "dependencies": {
+        "mkdirp": "^0.5.1",
+        "moment-timezone": "^0.5.23",
+        "node-sftp-server": "^0.3.0",
+        "winston": "^2.3.1",
+        "winston-daily-rotate-file": "^1.4.6"
+    },
+    "devDependencies": {}
+}

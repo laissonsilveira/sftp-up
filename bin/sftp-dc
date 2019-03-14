@@ -5,19 +5,47 @@
  * Created on 13/03/2019
  */
 global.__CONFIG = require('../cfg');
-
 const LOGGER = require('../lib/logger');
+const { createWriteStream } = require('fs');
+const mkdirp = require('mkdirp');
+const SFTPServer = require('node-sftp-server');
+const { join } = require('path');
+
 LOGGER.info('...::: SFTP-DC Server :::...');
 LOGGER.info('Execute mode: [' + process.env.NODE_ENV + ']');
 
-const { normalizePort, onErrorServer } = require('../lib/utils');
-const http = require('http');
-const port = normalizePort(process.env.PORT || __CONFIG.server.port);
-const server = http.createServer();
-server.listen(port);
-server.on('error', onErrorServer);
-server.on('listening', () => LOGGER.info(`Servidor iniciado na porta '${port}'`));
+const sftp = new SFTPServer({
+    privateKeyFile: join(process.env.HOME, '.ssh/id_rsa'),
+});
 
-require('../lib/sftp').start();
+const portSFTP = __CONFIG.sftpServer.port;
+sftp.listen(portSFTP);
+LOGGER.info(`Servidor SFTP iniciado na porta ${portSFTP}`);
 
-module.exports = server;
+sftp.on('connect', function (auth, info) {
+    LOGGER.warn(`Tentativa de login, informações do cliente: ${JSON.stringify(info)}`);
+    if (auth.method !== 'password' || auth.username !== 'dc' || auth.password !== 'dc') {
+        return auth.reject(['password'], false);
+    }
+    const username = auth.username;
+    return auth.accept(session => {
+        LOGGER.info(`Usuário '${username}' autenticado com sucesso`);
+        session.on('writefile', function (path, readstream) {
+            LOGGER.info('Escrevendo arquivo...');
+            let something = createWriteStream(path);
+            readstream.on('end', function () { LOGGER.info(`Finalizado escrita do arquivo '${path}'`); });
+            return readstream.pipe(something);
+        });
+        return session.on('realpath', function (path, callback) {
+            path = join(__CONFIG.sftpServer.rootPath, username);
+            return mkdirp(path, () => callback(path));
+        });
+    });
+});
+
+sftp.on('error', function (err) {
+    return LOGGER.error('Erro interno no servidor', err);
+});
+sftp.on('end', function () {
+    return LOGGER.info('Usuário desconectado');
+});

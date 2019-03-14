@@ -3,7 +3,8 @@
         "port": 6666
     },
     "sftpServer": {
-        "port": 8022
+        "port": 8022,
+        "rootPath": "/tmp/data"
     },
     "log": {
         "file": {

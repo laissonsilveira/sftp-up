@@ -1,6 +1,0 @@
-{
-    "release": "sim",
-    "nome_pacote": "c-sync-server.tgz",
-    "destino_pacote": "/Flash/Inteligencia",
-    "changelog": "Correção porta do serviço"
-}

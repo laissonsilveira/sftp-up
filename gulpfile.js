@@ -1,7 +1,7 @@
 /*eslint no-console: ['error', { allow: ['log', 'error'] }] */
 'use strict';
 /**
- * @author Laisson R. Silveira <laisson.silveira@digitro.com.br> 14/05/17.
+ * @author Laisson R. Silveira <laisson.r.silveira@gmail.com> 14/05/17.
  */
 const moment = require('moment');
 const { writeFileSync } = require('fs');
